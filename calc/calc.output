@@ -1,0 +1,1627 @@
+Terminals unused in grammar
+
+   ELSE
+   '{'
+   '}'
+
+
+Rules useless in parser due to conflicts
+
+   40 statement: INTEGER_LITERAL
+
+
+State 1 conflicts: 1 reduce/reduce
+State 10 conflicts: 1 reduce/reduce
+State 11 conflicts: 1 reduce/reduce
+State 13 conflicts: 1 reduce/reduce
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: %empty
+    2      | statement
+    3      | exp
+    4      | b_exp
+    5      | f_exp
+
+    6 exp: INTEGER_LITERAL
+    7    | exp PLUS exp
+    8    | exp MULT exp
+    9    | exp MINUS exp
+   10    | exp DIV exp
+   11    | MINUS exp
+   12    | exp POWER exp
+
+   13 b_exp: booli
+   14      | exp BIGEQ exp
+   15      | exp BIG exp
+   16      | exp SMALLEQ exp
+   17      | exp SMALL exp
+   18      | exp EQ exp
+   19      | exp DIF exp
+   20      | f_exp BIGEQ f_exp
+   21      | f_exp BIG f_exp
+   22      | f_exp SMALLEQ f_exp
+   23      | f_exp SMALL f_exp
+   24      | f_exp EQ f_exp
+   25      | f_exp DIF f_exp
+   26      | b_exp EQ b_exp
+   27      | b_exp DIF b_exp
+   28      | NOT b_exp
+   29      | b_exp AND b_exp
+   30      | b_exp OR b_exp
+
+   31 booli: TRUE
+   32      | FALSE
+
+   33 f_exp: FLOAT_LITERAL
+   34      | f_exp PLUS f_exp
+   35      | f_exp MULT f_exp
+   36      | f_exp MINUS f_exp
+   37      | f_exp DIV f_exp
+   38      | MINUS f_exp
+   39      | f_exp POWER f_exp
+
+   40 statement: INTEGER_LITERAL
+   41          | exp
+   42          | f_exp
+   43          | b_exp
+   44          | whileStmt
+   45          | ifStmt
+
+   46 whileStmt: WHILE '(' exp ')' statement
+   47          | WHILE '(' b_exp ')' statement
+   48          | WHILE '(' f_exp ')' statement
+
+   49 ifStmt: IF '(' exp ')' statement
+   50       | IF '(' b_exp ')' statement
+   51       | IF '(' f_exp ')' statement
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 46 47 48 49 50 51
+')' (41) 46 47 48 49 50 51
+'{' (123)
+'}' (125)
+error (256)
+INTEGER_LITERAL (258) 6 40
+FLOAT_LITERAL (259) 33
+IF (260) 49 50 51
+ELSE (261)
+WHILE (262) 46 47 48
+TRUE (263) 31
+FALSE (264) 32
+PLUS (265) 7 34
+MINUS (266) 9 11 36 38
+MULT (267) 8 35
+DIV (268) 10 37
+EQ (269) 18 24 26
+BIGEQ (270) 14 20
+BIG (271) 15 21
+SMALLEQ (272) 16 22
+SMALL (273) 17 23
+DIF (274) 19 25 27
+NOT (275) 28
+AND (276) 29
+OR (277) 30
+NEG (278)
+POWER (279) 12 39
+
+
+Nonterminals, with rules where they appear
+
+$accept (29)
+    on left: 0
+input (30)
+    on left: 1 2 3 4 5, on right: 0
+exp (31)
+    on left: 6 7 8 9 10 11 12, on right: 3 7 8 9 10 11 12 14 15 16
+    17 18 19 41 46 49
+b_exp (32)
+    on left: 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30,
+    on right: 4 26 27 28 29 30 43 47 50
+booli (33)
+    on left: 31 32, on right: 13
+f_exp (34)
+    on left: 33 34 35 36 37 38 39, on right: 5 20 21 22 23 24 25 34
+    35 36 37 38 39 42 48 51
+statement (35)
+    on left: 40 41 42 43 44 45, on right: 2 46 47 48 49 50 51
+whileStmt (36)
+    on left: 46 47 48, on right: 44
+ifStmt (37)
+    on left: 49 50 51, on right: 45
+
+
+State 0
+
+    0 $accept: . input $end
+
+    INTEGER_LITERAL  shift, and go to state 1
+    FLOAT_LITERAL    shift, and go to state 2
+    IF               shift, and go to state 3
+    WHILE            shift, and go to state 4
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    $default  reduce using rule 1 (input)
+
+    input      go to state 9
+    exp        go to state 10
+    b_exp      go to state 11
+    booli      go to state 12
+    f_exp      go to state 13
+    statement  go to state 14
+    whileStmt  go to state 15
+    ifStmt     go to state 16
+
+
+State 1
+
+    6 exp: INTEGER_LITERAL .
+   40 statement: INTEGER_LITERAL .
+
+    $end      reduce using rule 6 (exp)
+    $end      [reduce using rule 40 (statement)]
+    $default  reduce using rule 6 (exp)
+
+
+State 2
+
+   33 f_exp: FLOAT_LITERAL .
+
+    $default  reduce using rule 33 (f_exp)
+
+
+State 3
+
+   49 ifStmt: IF . '(' exp ')' statement
+   50       | IF . '(' b_exp ')' statement
+   51       | IF . '(' f_exp ')' statement
+
+    '('  shift, and go to state 17
+
+
+State 4
+
+   46 whileStmt: WHILE . '(' exp ')' statement
+   47          | WHILE . '(' b_exp ')' statement
+   48          | WHILE . '(' f_exp ')' statement
+
+    '('  shift, and go to state 18
+
+
+State 5
+
+   31 booli: TRUE .
+
+    $default  reduce using rule 31 (booli)
+
+
+State 6
+
+   32 booli: FALSE .
+
+    $default  reduce using rule 32 (booli)
+
+
+State 7
+
+   11 exp: MINUS . exp
+   38 f_exp: MINUS . f_exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    FLOAT_LITERAL    shift, and go to state 2
+    MINUS            shift, and go to state 7
+
+    exp    go to state 20
+    f_exp  go to state 21
+
+
+State 8
+
+   28 b_exp: NOT . b_exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    FLOAT_LITERAL    shift, and go to state 2
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp    go to state 22
+    b_exp  go to state 23
+    booli  go to state 12
+    f_exp  go to state 24
+
+
+State 9
+
+    0 $accept: input . $end
+
+    $end  shift, and go to state 25
+
+
+State 10
+
+    3 input: exp .
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   14 b_exp: exp . BIGEQ exp
+   15      | exp . BIG exp
+   16      | exp . SMALLEQ exp
+   17      | exp . SMALL exp
+   18      | exp . EQ exp
+   19      | exp . DIF exp
+   41 statement: exp .
+
+    PLUS     shift, and go to state 26
+    MINUS    shift, and go to state 27
+    MULT     shift, and go to state 28
+    DIV      shift, and go to state 29
+    EQ       shift, and go to state 30
+    BIGEQ    shift, and go to state 31
+    BIG      shift, and go to state 32
+    SMALLEQ  shift, and go to state 33
+    SMALL    shift, and go to state 34
+    DIF      shift, and go to state 35
+    POWER    shift, and go to state 36
+
+    $end      reduce using rule 3 (input)
+    $end      [reduce using rule 41 (statement)]
+    $default  reduce using rule 3 (input)
+
+
+State 11
+
+    4 input: b_exp .
+   26 b_exp: b_exp . EQ b_exp
+   27      | b_exp . DIF b_exp
+   29      | b_exp . AND b_exp
+   30      | b_exp . OR b_exp
+   43 statement: b_exp .
+
+    EQ   shift, and go to state 37
+    DIF  shift, and go to state 38
+    AND  shift, and go to state 39
+    OR   shift, and go to state 40
+
+    $end      reduce using rule 4 (input)
+    $end      [reduce using rule 43 (statement)]
+    $default  reduce using rule 4 (input)
+
+
+State 12
+
+   13 b_exp: booli .
+
+    $default  reduce using rule 13 (b_exp)
+
+
+State 13
+
+    5 input: f_exp .
+   20 b_exp: f_exp . BIGEQ f_exp
+   21      | f_exp . BIG f_exp
+   22      | f_exp . SMALLEQ f_exp
+   23      | f_exp . SMALL f_exp
+   24      | f_exp . EQ f_exp
+   25      | f_exp . DIF f_exp
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+   42 statement: f_exp .
+
+    PLUS     shift, and go to state 41
+    MINUS    shift, and go to state 42
+    MULT     shift, and go to state 43
+    DIV      shift, and go to state 44
+    EQ       shift, and go to state 45
+    BIGEQ    shift, and go to state 46
+    BIG      shift, and go to state 47
+    SMALLEQ  shift, and go to state 48
+    SMALL    shift, and go to state 49
+    DIF      shift, and go to state 50
+    POWER    shift, and go to state 51
+
+    $end      reduce using rule 5 (input)
+    $end      [reduce using rule 42 (statement)]
+    $default  reduce using rule 5 (input)
+
+
+State 14
+
+    2 input: statement .
+
+    $default  reduce using rule 2 (input)
+
+
+State 15
+
+   44 statement: whileStmt .
+
+    $default  reduce using rule 44 (statement)
+
+
+State 16
+
+   45 statement: ifStmt .
+
+    $default  reduce using rule 45 (statement)
+
+
+State 17
+
+   49 ifStmt: IF '(' . exp ')' statement
+   50       | IF '(' . b_exp ')' statement
+   51       | IF '(' . f_exp ')' statement
+
+    INTEGER_LITERAL  shift, and go to state 19
+    FLOAT_LITERAL    shift, and go to state 2
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp    go to state 52
+    b_exp  go to state 53
+    booli  go to state 12
+    f_exp  go to state 54
+
+
+State 18
+
+   46 whileStmt: WHILE '(' . exp ')' statement
+   47          | WHILE '(' . b_exp ')' statement
+   48          | WHILE '(' . f_exp ')' statement
+
+    INTEGER_LITERAL  shift, and go to state 19
+    FLOAT_LITERAL    shift, and go to state 2
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp    go to state 55
+    b_exp  go to state 56
+    booli  go to state 12
+    f_exp  go to state 57
+
+
+State 19
+
+    6 exp: INTEGER_LITERAL .
+
+    $default  reduce using rule 6 (exp)
+
+
+State 20
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   11    | MINUS exp .
+   12    | exp . POWER exp
+
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 11 (exp)
+
+
+State 21
+
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   38      | MINUS f_exp .
+   39      | f_exp . POWER f_exp
+
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 38 (f_exp)
+
+
+State 22
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   14 b_exp: exp . BIGEQ exp
+   15      | exp . BIG exp
+   16      | exp . SMALLEQ exp
+   17      | exp . SMALL exp
+   18      | exp . EQ exp
+   19      | exp . DIF exp
+
+    PLUS     shift, and go to state 26
+    MINUS    shift, and go to state 27
+    MULT     shift, and go to state 28
+    DIV      shift, and go to state 29
+    EQ       shift, and go to state 30
+    BIGEQ    shift, and go to state 31
+    BIG      shift, and go to state 32
+    SMALLEQ  shift, and go to state 33
+    SMALL    shift, and go to state 34
+    DIF      shift, and go to state 35
+    POWER    shift, and go to state 36
+
+
+State 23
+
+   26 b_exp: b_exp . EQ b_exp
+   27      | b_exp . DIF b_exp
+   28      | NOT b_exp .
+   29      | b_exp . AND b_exp
+   30      | b_exp . OR b_exp
+
+    $default  reduce using rule 28 (b_exp)
+
+
+State 24
+
+   20 b_exp: f_exp . BIGEQ f_exp
+   21      | f_exp . BIG f_exp
+   22      | f_exp . SMALLEQ f_exp
+   23      | f_exp . SMALL f_exp
+   24      | f_exp . EQ f_exp
+   25      | f_exp . DIF f_exp
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    PLUS     shift, and go to state 41
+    MINUS    shift, and go to state 42
+    MULT     shift, and go to state 43
+    DIV      shift, and go to state 44
+    EQ       shift, and go to state 45
+    BIGEQ    shift, and go to state 46
+    BIG      shift, and go to state 47
+    SMALLEQ  shift, and go to state 48
+    SMALL    shift, and go to state 49
+    DIF      shift, and go to state 50
+    POWER    shift, and go to state 51
+
+
+State 25
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+State 26
+
+    7 exp: exp PLUS . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 59
+
+
+State 27
+
+    9 exp: exp MINUS . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 60
+
+
+State 28
+
+    8 exp: exp MULT . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 61
+
+
+State 29
+
+   10 exp: exp DIV . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 62
+
+
+State 30
+
+   18 b_exp: exp EQ . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 63
+
+
+State 31
+
+   14 b_exp: exp BIGEQ . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 64
+
+
+State 32
+
+   15 b_exp: exp BIG . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 65
+
+
+State 33
+
+   16 b_exp: exp SMALLEQ . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 66
+
+
+State 34
+
+   17 b_exp: exp SMALL . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 67
+
+
+State 35
+
+   19 b_exp: exp DIF . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 68
+
+
+State 36
+
+   12 exp: exp POWER . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 69
+
+
+State 37
+
+   26 b_exp: b_exp EQ . b_exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    FLOAT_LITERAL    shift, and go to state 2
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp    go to state 22
+    b_exp  go to state 70
+    booli  go to state 12
+    f_exp  go to state 24
+
+
+State 38
+
+   27 b_exp: b_exp DIF . b_exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    FLOAT_LITERAL    shift, and go to state 2
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp    go to state 22
+    b_exp  go to state 71
+    booli  go to state 12
+    f_exp  go to state 24
+
+
+State 39
+
+   29 b_exp: b_exp AND . b_exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    FLOAT_LITERAL    shift, and go to state 2
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp    go to state 22
+    b_exp  go to state 72
+    booli  go to state 12
+    f_exp  go to state 24
+
+
+State 40
+
+   30 b_exp: b_exp OR . b_exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    FLOAT_LITERAL    shift, and go to state 2
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp    go to state 22
+    b_exp  go to state 73
+    booli  go to state 12
+    f_exp  go to state 24
+
+
+State 41
+
+   34 f_exp: f_exp PLUS . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 75
+
+
+State 42
+
+   36 f_exp: f_exp MINUS . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 76
+
+
+State 43
+
+   35 f_exp: f_exp MULT . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 77
+
+
+State 44
+
+   37 f_exp: f_exp DIV . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 78
+
+
+State 45
+
+   24 b_exp: f_exp EQ . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 79
+
+
+State 46
+
+   20 b_exp: f_exp BIGEQ . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 80
+
+
+State 47
+
+   21 b_exp: f_exp BIG . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 81
+
+
+State 48
+
+   22 b_exp: f_exp SMALLEQ . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 82
+
+
+State 49
+
+   23 b_exp: f_exp SMALL . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 83
+
+
+State 50
+
+   25 b_exp: f_exp DIF . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 84
+
+
+State 51
+
+   39 f_exp: f_exp POWER . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 85
+
+
+State 52
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   14 b_exp: exp . BIGEQ exp
+   15      | exp . BIG exp
+   16      | exp . SMALLEQ exp
+   17      | exp . SMALL exp
+   18      | exp . EQ exp
+   19      | exp . DIF exp
+   49 ifStmt: IF '(' exp . ')' statement
+
+    ')'      shift, and go to state 86
+    PLUS     shift, and go to state 26
+    MINUS    shift, and go to state 27
+    MULT     shift, and go to state 28
+    DIV      shift, and go to state 29
+    EQ       shift, and go to state 30
+    BIGEQ    shift, and go to state 31
+    BIG      shift, and go to state 32
+    SMALLEQ  shift, and go to state 33
+    SMALL    shift, and go to state 34
+    DIF      shift, and go to state 35
+    POWER    shift, and go to state 36
+
+
+State 53
+
+   26 b_exp: b_exp . EQ b_exp
+   27      | b_exp . DIF b_exp
+   29      | b_exp . AND b_exp
+   30      | b_exp . OR b_exp
+   50 ifStmt: IF '(' b_exp . ')' statement
+
+    ')'  shift, and go to state 87
+    EQ   shift, and go to state 37
+    DIF  shift, and go to state 38
+    AND  shift, and go to state 39
+    OR   shift, and go to state 40
+
+
+State 54
+
+   20 b_exp: f_exp . BIGEQ f_exp
+   21      | f_exp . BIG f_exp
+   22      | f_exp . SMALLEQ f_exp
+   23      | f_exp . SMALL f_exp
+   24      | f_exp . EQ f_exp
+   25      | f_exp . DIF f_exp
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+   51 ifStmt: IF '(' f_exp . ')' statement
+
+    ')'      shift, and go to state 88
+    PLUS     shift, and go to state 41
+    MINUS    shift, and go to state 42
+    MULT     shift, and go to state 43
+    DIV      shift, and go to state 44
+    EQ       shift, and go to state 45
+    BIGEQ    shift, and go to state 46
+    BIG      shift, and go to state 47
+    SMALLEQ  shift, and go to state 48
+    SMALL    shift, and go to state 49
+    DIF      shift, and go to state 50
+    POWER    shift, and go to state 51
+
+
+State 55
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   14 b_exp: exp . BIGEQ exp
+   15      | exp . BIG exp
+   16      | exp . SMALLEQ exp
+   17      | exp . SMALL exp
+   18      | exp . EQ exp
+   19      | exp . DIF exp
+   46 whileStmt: WHILE '(' exp . ')' statement
+
+    ')'      shift, and go to state 89
+    PLUS     shift, and go to state 26
+    MINUS    shift, and go to state 27
+    MULT     shift, and go to state 28
+    DIV      shift, and go to state 29
+    EQ       shift, and go to state 30
+    BIGEQ    shift, and go to state 31
+    BIG      shift, and go to state 32
+    SMALLEQ  shift, and go to state 33
+    SMALL    shift, and go to state 34
+    DIF      shift, and go to state 35
+    POWER    shift, and go to state 36
+
+
+State 56
+
+   26 b_exp: b_exp . EQ b_exp
+   27      | b_exp . DIF b_exp
+   29      | b_exp . AND b_exp
+   30      | b_exp . OR b_exp
+   47 whileStmt: WHILE '(' b_exp . ')' statement
+
+    ')'  shift, and go to state 90
+    EQ   shift, and go to state 37
+    DIF  shift, and go to state 38
+    AND  shift, and go to state 39
+    OR   shift, and go to state 40
+
+
+State 57
+
+   20 b_exp: f_exp . BIGEQ f_exp
+   21      | f_exp . BIG f_exp
+   22      | f_exp . SMALLEQ f_exp
+   23      | f_exp . SMALL f_exp
+   24      | f_exp . EQ f_exp
+   25      | f_exp . DIF f_exp
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+   48 whileStmt: WHILE '(' f_exp . ')' statement
+
+    ')'      shift, and go to state 91
+    PLUS     shift, and go to state 41
+    MINUS    shift, and go to state 42
+    MULT     shift, and go to state 43
+    DIV      shift, and go to state 44
+    EQ       shift, and go to state 45
+    BIGEQ    shift, and go to state 46
+    BIG      shift, and go to state 47
+    SMALLEQ  shift, and go to state 48
+    SMALL    shift, and go to state 49
+    DIF      shift, and go to state 50
+    POWER    shift, and go to state 51
+
+
+State 58
+
+   11 exp: MINUS . exp
+
+    INTEGER_LITERAL  shift, and go to state 19
+    MINUS            shift, and go to state 58
+
+    exp  go to state 20
+
+
+State 59
+
+    7 exp: exp . PLUS exp
+    7    | exp PLUS exp .
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+
+    MULT   shift, and go to state 28
+    DIV    shift, and go to state 29
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 7 (exp)
+
+
+State 60
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+    9    | exp MINUS exp .
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+
+    MULT   shift, and go to state 28
+    DIV    shift, and go to state 29
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 9 (exp)
+
+
+State 61
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    8    | exp MULT exp .
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 8 (exp)
+
+
+State 62
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   10    | exp DIV exp .
+   12    | exp . POWER exp
+
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 10 (exp)
+
+
+State 63
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   18 b_exp: exp EQ exp .
+
+    PLUS   shift, and go to state 26
+    MINUS  shift, and go to state 27
+    MULT   shift, and go to state 28
+    DIV    shift, and go to state 29
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 18 (b_exp)
+
+
+State 64
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   14 b_exp: exp BIGEQ exp .
+
+    PLUS   shift, and go to state 26
+    MINUS  shift, and go to state 27
+    MULT   shift, and go to state 28
+    DIV    shift, and go to state 29
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 14 (b_exp)
+
+
+State 65
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   15 b_exp: exp BIG exp .
+
+    PLUS   shift, and go to state 26
+    MINUS  shift, and go to state 27
+    MULT   shift, and go to state 28
+    DIV    shift, and go to state 29
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 15 (b_exp)
+
+
+State 66
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   16 b_exp: exp SMALLEQ exp .
+
+    PLUS   shift, and go to state 26
+    MINUS  shift, and go to state 27
+    MULT   shift, and go to state 28
+    DIV    shift, and go to state 29
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 16 (b_exp)
+
+
+State 67
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   17 b_exp: exp SMALL exp .
+
+    PLUS   shift, and go to state 26
+    MINUS  shift, and go to state 27
+    MULT   shift, and go to state 28
+    DIV    shift, and go to state 29
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 17 (b_exp)
+
+
+State 68
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   19 b_exp: exp DIF exp .
+
+    PLUS   shift, and go to state 26
+    MINUS  shift, and go to state 27
+    MULT   shift, and go to state 28
+    DIV    shift, and go to state 29
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 19 (b_exp)
+
+
+State 69
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   12    | exp POWER exp .
+
+    POWER  shift, and go to state 36
+
+    $default  reduce using rule 12 (exp)
+
+
+State 70
+
+   26 b_exp: b_exp . EQ b_exp
+   26      | b_exp EQ b_exp .
+   27      | b_exp . DIF b_exp
+   29      | b_exp . AND b_exp
+   30      | b_exp . OR b_exp
+
+    DIF  shift, and go to state 38
+    AND  shift, and go to state 39
+    OR   shift, and go to state 40
+
+    $default  reduce using rule 26 (b_exp)
+
+
+State 71
+
+   26 b_exp: b_exp . EQ b_exp
+   27      | b_exp . DIF b_exp
+   27      | b_exp DIF b_exp .
+   29      | b_exp . AND b_exp
+   30      | b_exp . OR b_exp
+
+    AND  shift, and go to state 39
+    OR   shift, and go to state 40
+
+    $default  reduce using rule 27 (b_exp)
+
+
+State 72
+
+   26 b_exp: b_exp . EQ b_exp
+   27      | b_exp . DIF b_exp
+   29      | b_exp . AND b_exp
+   29      | b_exp AND b_exp .
+   30      | b_exp . OR b_exp
+
+    OR  shift, and go to state 40
+
+    $default  reduce using rule 29 (b_exp)
+
+
+State 73
+
+   26 b_exp: b_exp . EQ b_exp
+   27      | b_exp . DIF b_exp
+   29      | b_exp . AND b_exp
+   30      | b_exp . OR b_exp
+   30      | b_exp OR b_exp .
+
+    $default  reduce using rule 30 (b_exp)
+
+
+State 74
+
+   38 f_exp: MINUS . f_exp
+
+    FLOAT_LITERAL  shift, and go to state 2
+    MINUS          shift, and go to state 74
+
+    f_exp  go to state 21
+
+
+State 75
+
+   34 f_exp: f_exp . PLUS f_exp
+   34      | f_exp PLUS f_exp .
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    MULT   shift, and go to state 43
+    DIV    shift, and go to state 44
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 34 (f_exp)
+
+
+State 76
+
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   36      | f_exp MINUS f_exp .
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    MULT   shift, and go to state 43
+    DIV    shift, and go to state 44
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 36 (f_exp)
+
+
+State 77
+
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   35      | f_exp MULT f_exp .
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 35 (f_exp)
+
+
+State 78
+
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   37      | f_exp DIV f_exp .
+   39      | f_exp . POWER f_exp
+
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 37 (f_exp)
+
+
+State 79
+
+   24 b_exp: f_exp EQ f_exp .
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    PLUS   shift, and go to state 41
+    MINUS  shift, and go to state 42
+    MULT   shift, and go to state 43
+    DIV    shift, and go to state 44
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 24 (b_exp)
+
+
+State 80
+
+   20 b_exp: f_exp BIGEQ f_exp .
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    PLUS   shift, and go to state 41
+    MINUS  shift, and go to state 42
+    MULT   shift, and go to state 43
+    DIV    shift, and go to state 44
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 20 (b_exp)
+
+
+State 81
+
+   21 b_exp: f_exp BIG f_exp .
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    PLUS   shift, and go to state 41
+    MINUS  shift, and go to state 42
+    MULT   shift, and go to state 43
+    DIV    shift, and go to state 44
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 21 (b_exp)
+
+
+State 82
+
+   22 b_exp: f_exp SMALLEQ f_exp .
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    PLUS   shift, and go to state 41
+    MINUS  shift, and go to state 42
+    MULT   shift, and go to state 43
+    DIV    shift, and go to state 44
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 22 (b_exp)
+
+
+State 83
+
+   23 b_exp: f_exp SMALL f_exp .
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    PLUS   shift, and go to state 41
+    MINUS  shift, and go to state 42
+    MULT   shift, and go to state 43
+    DIV    shift, and go to state 44
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 23 (b_exp)
+
+
+State 84
+
+   25 b_exp: f_exp DIF f_exp .
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+
+    PLUS   shift, and go to state 41
+    MINUS  shift, and go to state 42
+    MULT   shift, and go to state 43
+    DIV    shift, and go to state 44
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 25 (b_exp)
+
+
+State 85
+
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+   39      | f_exp POWER f_exp .
+
+    POWER  shift, and go to state 51
+
+    $default  reduce using rule 39 (f_exp)
+
+
+State 86
+
+   49 ifStmt: IF '(' exp ')' . statement
+
+    INTEGER_LITERAL  shift, and go to state 1
+    FLOAT_LITERAL    shift, and go to state 2
+    IF               shift, and go to state 3
+    WHILE            shift, and go to state 4
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp        go to state 92
+    b_exp      go to state 93
+    booli      go to state 12
+    f_exp      go to state 94
+    statement  go to state 95
+    whileStmt  go to state 15
+    ifStmt     go to state 16
+
+
+State 87
+
+   50 ifStmt: IF '(' b_exp ')' . statement
+
+    INTEGER_LITERAL  shift, and go to state 1
+    FLOAT_LITERAL    shift, and go to state 2
+    IF               shift, and go to state 3
+    WHILE            shift, and go to state 4
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp        go to state 92
+    b_exp      go to state 93
+    booli      go to state 12
+    f_exp      go to state 94
+    statement  go to state 96
+    whileStmt  go to state 15
+    ifStmt     go to state 16
+
+
+State 88
+
+   51 ifStmt: IF '(' f_exp ')' . statement
+
+    INTEGER_LITERAL  shift, and go to state 1
+    FLOAT_LITERAL    shift, and go to state 2
+    IF               shift, and go to state 3
+    WHILE            shift, and go to state 4
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp        go to state 92
+    b_exp      go to state 93
+    booli      go to state 12
+    f_exp      go to state 94
+    statement  go to state 97
+    whileStmt  go to state 15
+    ifStmt     go to state 16
+
+
+State 89
+
+   46 whileStmt: WHILE '(' exp ')' . statement
+
+    INTEGER_LITERAL  shift, and go to state 1
+    FLOAT_LITERAL    shift, and go to state 2
+    IF               shift, and go to state 3
+    WHILE            shift, and go to state 4
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp        go to state 92
+    b_exp      go to state 93
+    booli      go to state 12
+    f_exp      go to state 94
+    statement  go to state 98
+    whileStmt  go to state 15
+    ifStmt     go to state 16
+
+
+State 90
+
+   47 whileStmt: WHILE '(' b_exp ')' . statement
+
+    INTEGER_LITERAL  shift, and go to state 1
+    FLOAT_LITERAL    shift, and go to state 2
+    IF               shift, and go to state 3
+    WHILE            shift, and go to state 4
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp        go to state 92
+    b_exp      go to state 93
+    booli      go to state 12
+    f_exp      go to state 94
+    statement  go to state 99
+    whileStmt  go to state 15
+    ifStmt     go to state 16
+
+
+State 91
+
+   48 whileStmt: WHILE '(' f_exp ')' . statement
+
+    INTEGER_LITERAL  shift, and go to state 1
+    FLOAT_LITERAL    shift, and go to state 2
+    IF               shift, and go to state 3
+    WHILE            shift, and go to state 4
+    TRUE             shift, and go to state 5
+    FALSE            shift, and go to state 6
+    MINUS            shift, and go to state 7
+    NOT              shift, and go to state 8
+
+    exp        go to state 92
+    b_exp      go to state 93
+    booli      go to state 12
+    f_exp      go to state 94
+    statement  go to state 100
+    whileStmt  go to state 15
+    ifStmt     go to state 16
+
+
+State 92
+
+    7 exp: exp . PLUS exp
+    8    | exp . MULT exp
+    9    | exp . MINUS exp
+   10    | exp . DIV exp
+   12    | exp . POWER exp
+   14 b_exp: exp . BIGEQ exp
+   15      | exp . BIG exp
+   16      | exp . SMALLEQ exp
+   17      | exp . SMALL exp
+   18      | exp . EQ exp
+   19      | exp . DIF exp
+   41 statement: exp .
+
+    PLUS     shift, and go to state 26
+    MINUS    shift, and go to state 27
+    MULT     shift, and go to state 28
+    DIV      shift, and go to state 29
+    EQ       shift, and go to state 30
+    BIGEQ    shift, and go to state 31
+    BIG      shift, and go to state 32
+    SMALLEQ  shift, and go to state 33
+    SMALL    shift, and go to state 34
+    DIF      shift, and go to state 35
+    POWER    shift, and go to state 36
+
+    $default  reduce using rule 41 (statement)
+
+
+State 93
+
+   26 b_exp: b_exp . EQ b_exp
+   27      | b_exp . DIF b_exp
+   29      | b_exp . AND b_exp
+   30      | b_exp . OR b_exp
+   43 statement: b_exp .
+
+    EQ   shift, and go to state 37
+    DIF  shift, and go to state 38
+    AND  shift, and go to state 39
+    OR   shift, and go to state 40
+
+    $default  reduce using rule 43 (statement)
+
+
+State 94
+
+   20 b_exp: f_exp . BIGEQ f_exp
+   21      | f_exp . BIG f_exp
+   22      | f_exp . SMALLEQ f_exp
+   23      | f_exp . SMALL f_exp
+   24      | f_exp . EQ f_exp
+   25      | f_exp . DIF f_exp
+   34 f_exp: f_exp . PLUS f_exp
+   35      | f_exp . MULT f_exp
+   36      | f_exp . MINUS f_exp
+   37      | f_exp . DIV f_exp
+   39      | f_exp . POWER f_exp
+   42 statement: f_exp .
+
+    PLUS     shift, and go to state 41
+    MINUS    shift, and go to state 42
+    MULT     shift, and go to state 43
+    DIV      shift, and go to state 44
+    EQ       shift, and go to state 45
+    BIGEQ    shift, and go to state 46
+    BIG      shift, and go to state 47
+    SMALLEQ  shift, and go to state 48
+    SMALL    shift, and go to state 49
+    DIF      shift, and go to state 50
+    POWER    shift, and go to state 51
+
+    $default  reduce using rule 42 (statement)
+
+
+State 95
+
+   49 ifStmt: IF '(' exp ')' statement .
+
+    $default  reduce using rule 49 (ifStmt)
+
+
+State 96
+
+   50 ifStmt: IF '(' b_exp ')' statement .
+
+    $default  reduce using rule 50 (ifStmt)
+
+
+State 97
+
+   51 ifStmt: IF '(' f_exp ')' statement .
+
+    $default  reduce using rule 51 (ifStmt)
+
+
+State 98
+
+   46 whileStmt: WHILE '(' exp ')' statement .
+
+    $default  reduce using rule 46 (whileStmt)
+
+
+State 99
+
+   47 whileStmt: WHILE '(' b_exp ')' statement .
+
+    $default  reduce using rule 47 (whileStmt)
+
+
+State 100
+
+   48 whileStmt: WHILE '(' f_exp ')' statement .
+
+    $default  reduce using rule 48 (whileStmt)
